@@ -30,6 +30,10 @@ export function getAPIKey(cloudflareEnv: Env, provider: string, userApiKeys?: Re
   switch (provider) {
     case 'Anthropic':
       return env.ANTHROPIC_API_KEY || cloudflareEnv.ANTHROPIC_API_KEY;
+    case 'AzureAI':
+      return env.AZURE_AI_API_KEY;
+    case 'Cohere':
+      return env.COHERE_API_KEY;
     case 'OpenAI':
       return env.OPENAI_API_KEY || cloudflareEnv.OPENAI_API_KEY;
     case 'Google':
@@ -52,10 +56,6 @@ export function getAPIKey(cloudflareEnv: Env, provider: string, userApiKeys?: Re
       return env.XAI_API_KEY || cloudflareEnv.XAI_API_KEY;
     case 'Perplexity':
       return env.PERPLEXITY_API_KEY || cloudflareEnv.PERPLEXITY_API_KEY;
-    case 'Cohere':
-      return env.COHERE_API_KEY;
-    case 'AzureOpenAI':
-      return env.AZURE_OPENAI_API_KEY;
     default:
       return '';
   }
