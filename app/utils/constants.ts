@@ -43,17 +43,16 @@ const PROVIDER_LIST: ProviderInfo[] = [
     getApiKeyLink: 'https://console.anthropic.com/settings/keys',
   },
   {
-    name: 'Ollama',
-    staticModels: [],
-    getDynamicModels: getOllamaModels,
-    getApiKeyLink: 'https://ollama.com/download',
-    labelForGetApiKey: 'Download Ollama',
-    icon: 'i-ph:cloud-arrow-down',
-  },
-  {
-    name: 'OpenAILike',
-    staticModels: [],
-    getDynamicModels: getOpenAILikeModels,
+    name: 'AzureAI',
+    staticModels: [
+      { name: 'gpt-4o', label: 'OpenAI GPT-4o', provider: 'AzureAI', maxTokenAllowed: 8000 },
+      { name: 'gpt-4o-mini', label: 'OpenAI GPT-4o mini', provider: 'AzureAI', maxTokenAllowed: 8000 },
+      { name: 'Cohere-command-r-plus', label: 'Cohere Command R+', provider: 'AzureAI', maxTokenAllowed: 8000 },
+      { name: 'Mistral-large', label: 'Mistral Large', provider: 'AzureAI', maxTokenAllowed: 8000 },
+      { name: 'Mistral-Nemo', label: 'Mistral Nemo', provider: 'AzureAI', maxTokenAllowed: 8000 },
+      { name: 'Mistral-small', label: 'Mistral Small', provider: 'AzureAI', maxTokenAllowed: 8000 },
+    ],
+    getApiKeyLink: 'https://github.com/settings/tokens',
   },
   {
     name: 'Cohere',
@@ -72,56 +71,12 @@ const PROVIDER_LIST: ProviderInfo[] = [
     getApiKeyLink: 'https://dashboard.cohere.com/api-keys',
   },
   {
-    name: 'OpenRouter',
+    name: 'Deepseek',
     staticModels: [
-      { name: 'gpt-4o', label: 'GPT-4o', provider: 'OpenAI', maxTokenAllowed: 8000 },
-      {
-        name: 'anthropic/claude-3.5-sonnet',
-        label: 'Anthropic: Claude 3.5 Sonnet (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'anthropic/claude-3-haiku',
-        label: 'Anthropic: Claude 3 Haiku (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'deepseek/deepseek-coder',
-        label: 'Deepseek-Coder V2 236B (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'google/gemini-flash-1.5',
-        label: 'Google Gemini Flash 1.5 (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'google/gemini-pro-1.5',
-        label: 'Google Gemini Pro 1.5 (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      { name: 'x-ai/grok-beta', label: 'xAI Grok Beta (OpenRouter)', provider: 'OpenRouter', maxTokenAllowed: 8000 },
-      {
-        name: 'mistralai/mistral-nemo',
-        label: 'OpenRouter Mistral Nemo (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'qwen/qwen-110b-chat',
-        label: 'OpenRouter Qwen 110b Chat (OpenRouter)',
-        provider: 'OpenRouter',
-        maxTokenAllowed: 8000,
-      },
-      { name: 'cohere/command', label: 'Cohere Command (OpenRouter)', provider: 'OpenRouter', maxTokenAllowed: 4096 },
+      { name: 'deepseek-coder', label: 'Deepseek-Coder', provider: 'Deepseek', maxTokenAllowed: 8000 },
+      { name: 'deepseek-chat', label: 'Deepseek-Chat', provider: 'Deepseek', maxTokenAllowed: 8000 },
     ],
-    getDynamicModels: getOpenRouterModels,
-    getApiKeyLink: 'https://openrouter.ai/settings/keys',
+    getApiKeyLink: 'https://platform.deepseek.com/apiKeys',
   },
   {
     name: 'Google',
@@ -152,12 +107,6 @@ const PROVIDER_LIST: ProviderInfo[] = [
     name: 'HuggingFace',
     staticModels: [
       {
-        name: 'Qwen/Qwen2.5-Coder-32B-Instruct',
-        label: 'Qwen2.5-Coder-32B-Instruct (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
-      {
         name: '01-ai/Yi-1.5-34B-Chat',
         label: 'Yi-1.5-34B-Chat (HuggingFace)',
         provider: 'HuggingFace',
@@ -166,6 +115,18 @@ const PROVIDER_LIST: ProviderInfo[] = [
       {
         name: 'codellama/CodeLlama-34b-Instruct-hf',
         label: 'CodeLlama-34b-Instruct (HuggingFace)',
+        provider: 'HuggingFace',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'meta-llama/Llama-3.1-70B-Instruct',
+        label: 'Llama-3.1-70B-Instruct (HuggingFace)',
+        provider: 'HuggingFace',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'meta-llama/Llama-3.1-405B',
+        label: 'Llama-3.1-405B (HuggingFace)',
         provider: 'HuggingFace',
         maxTokenAllowed: 8000,
       },
@@ -187,38 +148,16 @@ const PROVIDER_LIST: ProviderInfo[] = [
         provider: 'HuggingFace',
         maxTokenAllowed: 8000,
       },
-      {
-        name: 'meta-llama/Llama-3.1-70B-Instruct',
-        label: 'Llama-3.1-70B-Instruct (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'meta-llama/Llama-3.1-405B',
-        label: 'Llama-3.1-405B (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: '01-ai/Yi-1.5-34B-Chat',
-        label: 'Yi-1.5-34B-Chat (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'codellama/CodeLlama-34b-Instruct-hf',
-        label: 'CodeLlama-34b-Instruct (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
-      {
-        name: 'NousResearch/Hermes-3-Llama-3.1-8B',
-        label: 'Hermes-3-Llama-3.1-8B (HuggingFace)',
-        provider: 'HuggingFace',
-        maxTokenAllowed: 8000,
-      },
     ],
     getApiKeyLink: 'https://huggingface.co/settings/tokens',
+  },
+  {
+    name: 'Ollama',
+    staticModels: [],
+    getDynamicModels: getOllamaModels,
+    getApiKeyLink: 'https://ollama.com/download',
+    labelForGetApiKey: 'Download Ollama',
+    icon: 'i-ph:cloud-arrow-down',
   },
   {
     name: 'OpenAI',
@@ -231,20 +170,69 @@ const PROVIDER_LIST: ProviderInfo[] = [
     getApiKeyLink: 'https://platform.openai.com/api-keys',
   },
   {
+    name: 'OpenAILike',
+    staticModels: [],
+    getDynamicModels: getOpenAILikeModels,
+  },
+  {
+    name: 'OpenRouter',
+    staticModels: [
+      { name: 'gpt-4o', label: 'GPT-4o', provider: 'OpenAI', maxTokenAllowed: 8000 },
+      {
+        name: 'anthropic/claude-3.5-sonnet',
+        label: 'Anthropic: Claude 3.5 Sonnet (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'anthropic/claude-3-haiku',
+        label: 'Anthropic: Claude 3 Haiku (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      { name: 'cohere/command', label: 'Cohere Command (OpenRouter)', provider: 'OpenRouter', maxTokenAllowed: 4096 },
+      {
+        name: 'deepseek/deepseek-coder',
+        label: 'Deepseek-Coder V2 236B (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'google/gemini-flash-1.5',
+        label: 'Google Gemini Flash 1.5 (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'google/gemini-pro-1.5',
+        label: 'Google Gemini Pro 1.5 (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'mistralai/mistral-nemo',
+        label: 'OpenRouter Mistral Nemo (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      {
+        name: 'qwen/qwen-110b-chat',
+        label: 'OpenRouter Qwen 110b Chat (OpenRouter)',
+        provider: 'OpenRouter',
+        maxTokenAllowed: 8000,
+      },
+      { name: 'x-ai/grok-beta', label: 'xAI Grok Beta (OpenRouter)', provider: 'OpenRouter', maxTokenAllowed: 8000 },
+    ],
+    getDynamicModels: getOpenRouterModels,
+    getApiKeyLink: 'https://openrouter.ai/settings/keys',
+  },
+  {
     name: 'xAI',
     staticModels: [
       { name: 'grok-beta', label: 'xAI Grok Beta', provider: 'xAI', maxTokenAllowed: 8000 },
       { name: 'grok-2-1212', label: 'xAI Grok2 1212', provider: 'xAI', maxTokenAllowed: 8000 },
     ],
     getApiKeyLink: 'https://docs.x.ai/docs/quickstart#creating-an-api-key',
-  },
-  {
-    name: 'Deepseek',
-    staticModels: [
-      { name: 'deepseek-coder', label: 'Deepseek-Coder', provider: 'Deepseek', maxTokenAllowed: 8000 },
-      { name: 'deepseek-chat', label: 'Deepseek-Chat', provider: 'Deepseek', maxTokenAllowed: 8000 },
-    ],
-    getApiKeyLink: 'https://platform.deepseek.com/apiKeys',
   },
   {
     name: 'Mistral',
@@ -285,7 +273,6 @@ const PROVIDER_LIST: ProviderInfo[] = [
         provider: 'Together',
         maxTokenAllowed: 8000,
       },
-
       {
         name: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
         label: 'Mixtral 8x7B Instruct',
@@ -325,8 +312,17 @@ export const providerBaseUrlEnvKeys: Record<string, { baseUrlKey?: string; apiTo
   Anthropic: {
     apiTokenKey: 'ANTHROPIC_API_KEY',
   },
-  OpenAI: {
-    apiTokenKey: 'OPENAI_API_KEY',
+  AzureAI: {
+    apiTokenKey: 'AZURE_AI_API_KEY',
+  },
+  Cohere: {
+    apiTokenKey: 'COHERE_API_KEY',
+  },
+  Deepseek: {
+    apiTokenKey: 'DEEPSEEK_API_KEY',
+  },
+  Google: {
+    apiTokenKey: 'GOOGLE_GENERATIVE_AI_API_KEY',
   },
   Groq: {
     apiTokenKey: 'GROQ_API_KEY',
@@ -334,40 +330,34 @@ export const providerBaseUrlEnvKeys: Record<string, { baseUrlKey?: string; apiTo
   HuggingFace: {
     apiTokenKey: 'HuggingFace_API_KEY',
   },
-  OpenRouter: {
-    apiTokenKey: 'OPEN_ROUTER_API_KEY',
+  LMStudio: {
+    baseUrlKey: 'LMSTUDIO_API_BASE_URL',
   },
-  Google: {
-    apiTokenKey: 'GOOGLE_GENERATIVE_AI_API_KEY',
+  Mistral: {
+    apiTokenKey: 'MISTRAL_API_KEY',
+  },
+  Ollama: {
+    baseUrlKey: 'OLLAMA_API_BASE_URL',
+  },
+  OpenAI: {
+    apiTokenKey: 'OPENAI_API_KEY',
   },
   OpenAILike: {
     baseUrlKey: 'OPENAI_LIKE_API_BASE_URL',
     apiTokenKey: 'OPENAI_LIKE_API_KEY',
   },
-  Together: {
-    baseUrlKey: 'TOGETHER_API_BASE_URL',
-    apiTokenKey: 'TOGETHER_API_KEY',
-  },
-  Deepseek: {
-    apiTokenKey: 'DEEPSEEK_API_KEY',
-  },
-  Mistral: {
-    apiTokenKey: 'MISTRAL_API_KEY',
-  },
-  LMStudio: {
-    baseUrlKey: 'LMSTUDIO_API_BASE_URL',
-  },
-  xAI: {
-    apiTokenKey: 'XAI_API_KEY',
-  },
-  Cohere: {
-    apiTokenKey: 'COHERE_API_KEY',
+  OpenRouter: {
+    apiTokenKey: 'OPEN_ROUTER_API_KEY',
   },
   Perplexity: {
     apiTokenKey: 'PERPLEXITY_API_KEY',
   },
-  Ollama: {
-    baseUrlKey: 'OLLAMA_API_BASE_URL',
+  Together: {
+    baseUrlKey: 'TOGETHER_API_BASE_URL',
+    apiTokenKey: 'TOGETHER_API_KEY',
+  },
+  xAI: {
+    apiTokenKey: 'XAI_API_KEY',
   },
 };
 

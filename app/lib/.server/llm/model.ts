@@ -110,6 +110,15 @@ export function getOpenRouterModel(apiKey: OptionalApiKey, model: string) {
   return openRouter.chat(model);
 }
 
+export function getAzureAIModel(apiKey: OptionalApiKey, model: string) {
+  const openai = createOpenAI({
+    baseURL: 'https://models.inference.ai.azure.com',
+    apiKey,
+  });
+
+  return openai(model);
+}
+
 export function getLMStudioModel(baseURL: string, model: string) {
   const lmstudio = createOpenAI({
     baseUrl: `${baseURL}/v1`,
@@ -158,6 +167,8 @@ export function getModel(
   switch (provider) {
     case 'Anthropic':
       return getAnthropicModel(apiKey, model);
+    case 'AzureAI':
+      return getAzureAIModel(apiKey, model);
     case 'OpenAI':
       return getOpenAIModel(apiKey, model);
     case 'Groq':
